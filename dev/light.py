@@ -37,7 +37,20 @@ class LightShow(Light):
         #number of lights
         self.countT=len(lightL)
 
+        #variables for alt blink
+        self.lightB=False
+        self.lighte=[]
+        self.lighto=[]
+    
+    def altBlinkinit(self):
+        for x in range(0,len(self.lightL)):
+            if (x%2)==0:
+                self.lighte.append(self.lightL[x])
+            else:
+                self.lighto.append(self.lightL[x])
+
     def offP(self):
+        '''used to make sure all functions start at the same point every time'''
         for x in self.lightL:
             self.lightL[x].allOff()  
     def blink(self, times):
@@ -89,3 +102,52 @@ class LightShow(Light):
             self.lightL[x].toggle()
             time.sleep(self.standardTimeS*self.timeA[1])
         self.offP()
+    
+    def bounce(self):
+        '''Bounce the light that is on from one end to another'''
+        self.offP()
+        for x in range(0,len(self.lightL)):
+            self.lightL[x].toggle()
+            time.sleep(self.standardTimeS*self.timeA[1])
+            self.lightL[x].toggle()
+        #leaves last light on
+        for x in range(-len(self.lightL)+1,1):
+            self.lightL[-x].toggle()
+            time.sleep(self.standardTimeS*self.timeA[1])
+            self.lightL[-x].toggle()
+        self.offP()
+    
+    def rowblink(self):
+        '''Turn on rows at a time'''
+        self.offP()
+        #turn all on
+        for x in range(0,len(self.lightL)):
+            self.lightL[x].toggle()
+        #wait sleep time
+        time.sleep(self.standardTimeS/self.timeA[2])
+        #turn all off
+        for x in range(0,len(self.lightL)):
+            self.lightL[x].toggle()
+        self.offP()
+    
+    def altBlink(self,num):
+        '''blink lights based on array value (odd or even)'''
+        self.offP()
+        if not self.lightB:
+            self.altBlinkinit()
+        for x in range(0,num+1):
+            for x in range(0,len(self.lighte)):
+                #toggle even on
+                #light_object_array[even array[iterator]].toggle()
+                self.lightL[self.lighte[x]].toggle()
+            time.sleep(self.standardTimeS/self.timeA[3])
+            for x in range(0,len(self.lighte)):
+                #toggle even off
+                #light_object_array[even array[iterator]].toggle()
+                self.lightL[self.lighte[x]].toggle()
+            for x in range(0,len(self.lighto)):
+                #toggle odd on
+                self.lightL[self.lighto[x]].toggle()
+            time.sleep(self.standardTimeS/self.timeA[3])
+            self.offP()
+    

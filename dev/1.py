@@ -535,12 +535,12 @@ def gradbBlink(num):
 try:
   for x in range(2):
 ##        # turn on lights
-      quickBlink(3)
+      #quickBlink(3)
       quickrowBlink(5)
       bounce(2)
       gradBlink(1)
       gradbBlink(1)
-      blink(2))
+      blink(2)
       altBlink(3)
       #
 

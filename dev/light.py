@@ -52,17 +52,17 @@ class LightShow(Light):
 
     def offP(self):
         '''used to make sure all functions start at the same point every time'''
-        for x in self.lightL:
+        for x in range(0,len(self.lightL)):
             self.lightL[x].allOff()  
     def blink(self, times):
         #get rid of this to optimize
         self.offP()
 
         #turn lights on
-        for x in self.lightL:
+        for x in range(0,len(self.lightL)):
             self.lightL[x].toggle()
         time.sleep(self.standardTimeS*self.timeA[0])
-        for x in self.lightL:
+        for x in range(0,len(self.lightL)):
             self.lightL[x].toggle()
         #turn lights off
 

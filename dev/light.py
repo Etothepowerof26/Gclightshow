@@ -1,9 +1,7 @@
 #!/usr/bin/python
 import RPi.GPIO as GPIO
 import time
-GPIO.cleanup()
-#set GPIO as the numbers of pins
-GPIO.setmode(GPIO.BOARD)
+
 class Light:  
     '''light object'''
     def __init__(self, pin,state=False):

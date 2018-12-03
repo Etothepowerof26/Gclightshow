@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo python /home/pi/Desktop/'1-5 test light code'/1.py
+sudo python /home/pi/Gclightshow/dev/lightShow.psh

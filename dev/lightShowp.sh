@@ -1,2 +1,2 @@
 #!/bin/sh
-sudo python /home/pi/Gclightshow/dev/lightShow.psh
+sudo python /home/pi/Gclightshow/dev/lightshowLoop.py

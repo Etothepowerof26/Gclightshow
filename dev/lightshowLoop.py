@@ -3,16 +3,23 @@ import RPi.GPIO as GPIO
 import importlib, time
 import light
 importlib.import_module("light")
-
+GPIO.cleanup()
+#set GPIO as the numbers of pins
+GPIO.setmode(GPIO.BOARD)
 #set up pins
-light1=light.Light(11)
-light2=light.Light(12)
-light3=light.Light(13)
-light4=light.Light(15)
-light5=light.Light(16)
-light6=light.Light(18)
-light7=light.Light(22)
-light8=light.Light(7)
+pinList = [11,12,13, 15, 16, 18, 22, 7]
+for i in pinList:
+    GPIO.setup(i, GPIO.OUT) 
+    GPIO.output(i, True)
+light1=light.Light(pinList[0])
+light2=light.Light(pinList[1])
+light3=light.Light(pinList[2])
+light4=light.Light(pinList[3])
+light5=light.Light(pinList[4])
+light6=light.Light(pinList[5])
+light7=light.Light(pinList[6])
+light8=light.Light(pinList[7])
+
 #set up pin array
 lightTa=[light3,light4,light5,light6,light7,light8]
 #create light show array object with correct GPIO out pins

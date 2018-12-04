@@ -17,10 +17,12 @@ class Light:
         if(self.state==True):
             #light off
             GPIO.output(self.pin, False)
+            self.state=False
             print("light "+ self.name+" off")
         elif(self.state==False):
             GPIO.output(self.pin, True)
             print("light "+ self.name+" on")
+            self.state=True
     def allOff(self):
         GPIO.output(self.pin, False)
 

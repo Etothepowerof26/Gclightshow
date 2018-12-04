@@ -12,20 +12,16 @@ class Light:
     def getState(self):
         return self.state
     
-    def toggle(self):
-        #if on then off
-        if(self.state==True):
-            #light off
-            GPIO.output(self.pin, False)
-            self.state=False
-            print("light "+ self.name+" off")
-        elif(self.state==False):
-            GPIO.output(self.pin, True)
-            print("light "+ self.name+" on")
-            self.state=True
-    def allOff(self):
+    def toggleOff(self):
+        #light off
         GPIO.output(self.pin, False)
-
+        self.state=False
+        print("light "+ self.name+" off")
+    def toggleOn(self):    
+        GPIO.output(self.pin, True)
+        print("light "+ self.name+" on")
+        self.state=True
+    
 class LightShow(Light):
     '''List of lights and their respective functions
         initialized variables in list of:
@@ -61,22 +57,17 @@ class LightShow(Light):
         for x in range(0,len(self.lightL)):
             self.lightL[x].allOff()  
     def blink(self, times):
-        #get rid of this to optimize
-        self.offP()
-
         #turn lights on
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOn()
         time.sleep(self.standardTimeS*self.timeA[0])
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOff()
         #turn lights off
 
-        #get rid of this to optimize
-        self.offP()
     def oboblink(self):
         '''One by one blink'''
-        self.offP()
+        self.toggleOff()
         #number of times it'll take to blink up and down
         #self.countT=self.countT*2+1
         # old code btw
@@ -86,7 +77,7 @@ class LightShow(Light):
         #     lightS.append(False)
 
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOn()
             time.sleep(self.standardTimeS*self.timeA[1])
         #bootleg way to turn them off then that way
         #i found a better way but I like it bootleg
@@ -94,7 +85,7 @@ class LightShow(Light):
         count1=self.countT-1
         count2=0
         while (count1-count2)>=0:
-            self.lightL[count1-count2].toggle()
+            self.lightL[count1-count2].toggleOff()
             count2+=1
             time.sleep(self.standardTimeS*self.timeA[1])
         self.offP()
@@ -103,10 +94,10 @@ class LightShow(Light):
         '''One by one blink backwards'''
         self.offP()
         for x in range(-len(self.lightL)+1,1):
-            self.lightL[-x].toggle()
+            self.lightL[-x].toggleOn()
             time.sleep(self.standardTimeS*self.timeA[1])
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOff()
             time.sleep(self.standardTimeS*self.timeA[1])
         self.offP()
     
@@ -114,14 +105,14 @@ class LightShow(Light):
         '''Bounce the light that is on from one end to another'''
         self.offP()
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOn()
             time.sleep(self.standardTimeS*self.timeA[1])
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOff()
         #leaves last light on
         for x in range(-len(self.lightL)+1,1):
-            self.lightL[-x].toggle()
+            self.lightL[-x].toggleOn()
             time.sleep(self.standardTimeS*self.timeA[1])
-            self.lightL[-x].toggle()
+            self.lightL[-x].toggleOff()
         self.offP()
     
     def rowblink(self):
@@ -129,12 +120,12 @@ class LightShow(Light):
         self.offP()
         #turn all on
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOn()
         #wait sleep time
         time.sleep(self.standardTimeS/self.timeA[2])
         #turn all off
         for x in range(0,len(self.lightL)):
-            self.lightL[x].toggle()
+            self.lightL[x].toggleOff()
         self.offP()
     
     def altBlink(self,num):
@@ -146,15 +137,18 @@ class LightShow(Light):
             for x in range(0,len(self.lighte)):
                 #toggle even on
                 #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x]].toggle()
+                self.lightL[self.lighte[x]].toggleOn()
             time.sleep(self.standardTimeS/self.timeA[3])
             for x in range(0,len(self.lighte)):
                 #toggle even off
                 #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x]].toggle()
+                self.lightL[self.lighte[x]].toggleOff()
             for x in range(0,len(self.lighto)):
                 #toggle odd on
-                self.lightL[self.lighto[x]].toggle()
+                self.lightL[self.lighto[x]].toggleOn()
             time.sleep(self.standardTimeS/self.timeA[3])
+            for x in range(0,len(self.lighto)):
+                #toggle odd on
+                self.lightL[self.lighto[x]].toggleOff()
             self.offP()
     

@@ -32,3 +32,4 @@ for x in range(0,1000):
     lightShow1.bounce()
     lightShow1.rowblink()
     lightShow1.obobblink()
+    time.sleep(180)

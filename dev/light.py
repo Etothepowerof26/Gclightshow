@@ -22,6 +22,7 @@ class Light:
         print("light "+ self.name+" on")
         self.state=True
     
+    
 class LightShow(Light):
     '''List of lights and their respective functions
         initialized variables in list of:
@@ -55,7 +56,7 @@ class LightShow(Light):
     def offP(self):
         '''used to make sure all functions start at the same point every time'''
         for x in range(0,len(self.lightL)):
-            self.lightL[x].allOff()  
+            self.lightL[x].toggleOff()  
     def blink(self, times):
         #turn lights on
         for x in range(0,len(self.lightL)):

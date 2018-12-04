@@ -141,12 +141,12 @@ class LightShow(Light):
             for x in range(0,len(self.lighte)):
                 #toggle even on
                 #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x].toggle()
+                self.lighte[x].toggle()
             time.sleep(self.standardTimeS/self.timeA[3])
             for x in range(0,len(self.lighte)):
                 #toggle even off
                 #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x]].toggle()
+                self.lighte[x].toggle()
             for x in range(0,len(self.lighto)):
                 #toggle odd on
                 self.lightL[self.lighto[x]].toggle()

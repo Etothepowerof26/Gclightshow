@@ -4,7 +4,7 @@ import time
 
 class Light:  
     '''light object'''
-    def __init__(self, pin,name,state=False):
+    def __init__(self, pin, name, state=False):
         self.pin=pin
         self.state=state
         self.name=name

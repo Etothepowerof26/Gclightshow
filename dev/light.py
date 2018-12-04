@@ -47,9 +47,9 @@ class LightShow(Light):
     def altBlinkinit(self):
         for x in range(0,len(self.lightL)):
             if (x%2)==0:
-                self.lighte.append(self.lightL[x])
+                self.lighte.append(x)
             else:
-                self.lighto.append(self.lightL[x])
+                self.lighto.append(x)
 
     def offP(self):
         '''used to make sure all functions start at the same point every time'''
@@ -91,7 +91,7 @@ class LightShow(Light):
         while (count1-count2)>=0:
             self.lightL[count1-count2].toggle()
             count2+=1
-            time.sleep(self.standardTimeS*self.timeA[2])
+            time.sleep(self.standardTimeS*self.timeA[1])
         self.offP()
 
     def obobblink(self):
@@ -141,7 +141,7 @@ class LightShow(Light):
             for x in range(0,len(self.lighte)):
                 #toggle even on
                 #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x]].toggle()
+                self.lightL[self.lighte[x].toggle()
             time.sleep(self.standardTimeS/self.timeA[3])
             for x in range(0,len(self.lighte)):
                 #toggle even off

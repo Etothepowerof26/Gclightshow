@@ -25,4 +25,10 @@ lightTa=[light3,light4,light5,light6,light7,light8]
 #create light show array object with correct GPIO out pins
 lightShow1=light.LightShow(1,lightTa,[6,1,1,.5])
 
-lightShow1.oboblink()
+for x in range(0,1000):
+    lightShow1.oboblink()
+    lightShow1.blink(4)
+    lightShow1.altBlink()
+    lightShow1.bounce()
+    lightShow1.rowblink()
+    lightShow1.obobblink()

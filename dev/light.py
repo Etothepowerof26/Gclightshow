@@ -4,20 +4,23 @@ import time
 
 class Light:  
     '''light object'''
-    def __init__(self, pin,state=False):
+    def __init__(self, pin,name,state=False):
         self.pin=pin
         self.state=state
+        self.name=name
 
     def getState(self):
         return self.state
     
     def toggle(self):
+        #if on then off
         if(self.state):
-            #light on
+            #light off
             GPIO.output(self.pin, False)
+            print("light "+ self.name+" off")
         elif(not self.state):
             GPIO.output(self.pin, True)
-    
+            print("light "+ self.name+" on")
     def allOff(self):
         GPIO.output(self.pin, False)
 

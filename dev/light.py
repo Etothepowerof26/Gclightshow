@@ -14,11 +14,11 @@ class Light:
     
     def toggle(self):
         #if on then off
-        if(self.state):
+        if(self.state==True):
             #light off
             GPIO.output(self.pin, False)
             print("light "+ self.name+" off")
-        elif(not self.state):
+        elif(self.state==False):
             GPIO.output(self.pin, True)
             print("light "+ self.name+" on")
     def allOff(self):

@@ -64,10 +64,10 @@ class LightShow(Light):
         for x in range(0,len(self.lightL)):
             self.lightL[x].toggleOff()
         #turn lights off
-
+ 
     def oboblink(self):
         '''One by one blink'''
-        self.toggleOff()
+        self.offP()
         #number of times it'll take to blink up and down
         #self.countT=self.countT*2+1
         # old code btw

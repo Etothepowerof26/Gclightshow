@@ -33,6 +33,7 @@ try:
         lightShow1.bounce()
         lightShow1.rowblink()
         lightShow1.obobblink()
+        lightShow1.offP()
         time.sleep(180)
 except KeyboardInterrupt:
   print("Quit")

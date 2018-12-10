@@ -126,7 +126,7 @@ class LightShow(Light):
         for x in range(0,len(self.lightL)):
             self.lightL[x].toggleOn()
         #wait sleep time
-        time.sleep(self.standardTimeS/self.timeA[2])
+        time.sleep(self.standardTimeS*self.timeA[2])
         #turn all off
         for x in range(0,len(self.lightL)):
             self.lightL[x].toggleOff()
@@ -137,13 +137,13 @@ class LightShow(Light):
         time.sleep(2)
         self.lightL[0].toggleOn()
         #wait seconds then turn C on while G still on
-        time.sleep((self.standardTimeS/self.timeA[4]))
+        time.sleep((self.standardTimeS*self.timeA[4]))
         self.lightL[1].toggleOn()
-        time.sleep((self.standardTimeS/self.timeA[3]))
+        time.sleep((self.standardTimeS*self.timeA[3]))
         self.lightL[2].toggleOn()
-        time.sleep((self.standardTimeS/self.timeA[3]))
+        time.sleep((self.standardTimeS*self.timeA[3]))
         self.lightL[3].toggleOn()
-        time.sleep((self.standardTimeS/self.timeA[3]))
+        time.sleep((self.standardTimeS*self.timeA[3]))
         self.offP()
         
     def altBlink(self,num):
@@ -156,7 +156,7 @@ class LightShow(Light):
                 #toggle even on
                 #light_object_array[even array[iterator]].toggle()
                 self.lightL[self.lighte[x]].toggleOn()
-            time.sleep(self.standardTimeS/self.timeA[3])
+            time.sleep(self.standardTimeS*self.timeA[3])
             for x in range(0,len(self.lighte)):
                 #toggle even off
                 #light_object_array[even array[iterator]].toggle()
@@ -164,7 +164,7 @@ class LightShow(Light):
             for x in range(0,len(self.lighto)):
                 #toggle odd on
                 self.lightL[self.lighto[x]].toggleOn()
-            time.sleep(self.standardTimeS/self.timeA[3])
+            time.sleep(self.standardTimeS*self.timeA[3])
             for x in range(0,len(self.lighto)):
                 #toggle odd on
                 self.lightL[self.lighto[x]].toggleOff()

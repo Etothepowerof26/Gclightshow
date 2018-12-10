@@ -131,7 +131,10 @@ class LightShow(Light):
         for x in range(0,len(self.lightL)):
             self.lightL[x].toggleOff()
         self.offP()
-    
+    def gcBlink(self):
+        self.offP()
+        #turn all on
+        
     def altBlink(self,num):
         '''blink lights based on array value (odd or even)'''
         self.offP()

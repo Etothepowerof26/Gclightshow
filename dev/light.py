@@ -134,6 +134,7 @@ class LightShow(Light):
     def gcBlink(self):
         self.offP()
         #turn g on
+        time.sleep(2)
         self.lightL[0].toggleOn()
         #wait seconds then turn C on while G still on
         time.sleep((self.standardTimeS/self.timeA[1])/2)

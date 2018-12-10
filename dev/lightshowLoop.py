@@ -31,6 +31,7 @@ try:
         lightShow1.gcBlink()
         lightShow1.gcBlink()
         lightShow1.gcBlink()
+        time.sleep(2)
         
         lightShow1.oboblink()
         lightShow1.blink(4)

@@ -14,12 +14,12 @@ for i in pinList:
     GPIO.output(i, True)
 light1=light.Light(pinList[0],"1")
 light2=light.Light(pinList[1],"2")
-light3=light.Light(pinList[2],"3")
-light4=light.Light(pinList[3],"4")
-light5=light.Light(pinList[4],"5")
-light6=light.Light(pinList[5],"6")
-light7=light.Light(pinList[6],"7")
-light8=light.Light(pinList[7],"8")
+light3=light.Light(pinList[7],"3")
+light4=light.Light(pinList[6],"4")
+light5=light.Light(pinList[5],"5")
+light6=light.Light(pinList[4],"6")
+light7=light.Light(pinList[3],"7")
+light8=light.Light(pinList[2],"8")
 
 #set up pin array
 lightTa=[light3,light4,light5,light6,light7,light8]

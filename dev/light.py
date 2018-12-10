@@ -137,13 +137,13 @@ class LightShow(Light):
         time.sleep(2)
         self.lightL[0].toggleOn()
         #wait seconds then turn C on while G still on
-        time.sleep((self.standardTimeS/self.timeA[1])/2)
+        time.sleep((self.standardTimeS/self.timeA[3]))
         self.lightL[1].toggleOn()
-        time.sleep((self.standardTimeS/self.timeA[1])/4)
+        time.sleep((self.standardTimeS/self.timeA[1]))
         self.lightL[2].toggleOn()
-        time.sleep((self.standardTimeS/self.timeA[1])/4)
+        time.sleep((self.standardTimeS/self.timeA[1]))
         self.lightL[3].toggleOn()
-        time.sleep((self.standardTimeS/self.timeA[1])/4)
+        time.sleep((self.standardTimeS/self.timeA[1]))
         self.offP()
         
     def altBlink(self,num):

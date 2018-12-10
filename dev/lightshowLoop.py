@@ -28,9 +28,6 @@ lightShow1=light.LightShow(1,lightTa,[1,1,1,.5])
 try:
     for x in range(0,1000):
         lightShow1.gcBlink()
-        lightShow1.gcBlink()
-        lightShow1.gcBlink()
-        lightShow1.gcBlink()
         time.sleep(2)
         
         lightShow1.oboblink()

@@ -24,7 +24,7 @@ light8=light.Light(pinList[2],"8")
 #set up pin array
 lightTa=[light3,light4,light5,light6,light7,light8]
 #create light show array object with correct GPIO out pins
-lightShow1=light.LightShow(1,lightTa,[1,1,1,2,4])
+lightShow1=light.LightShow(1,lightTa,[1,1,1,.5,.25])
 try:
     for x in range(0,1000):
         lightShow1.gcBlink()

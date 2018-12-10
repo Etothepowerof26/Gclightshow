@@ -27,6 +27,11 @@ lightTa=[light3,light4,light5,light6,light7,light8]
 lightShow1=light.LightShow(1,lightTa,[1,1,1,.5])
 try:
     for x in range(0,1000):
+        lightShow1.gcBlink()
+        lightShow1.gcBlink()
+        lightShow1.gcBlink()
+        lightShow1.gcBlink()
+        
         lightShow1.oboblink()
         lightShow1.blink(4)
         lightShow1.altBlink(4)

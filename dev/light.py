@@ -133,7 +133,17 @@ class LightShow(Light):
         self.offP()
     def gcBlink(self):
         self.offP()
-        #turn all on
+        #turn g on
+        self.lightL[0].toggleOn()
+        #wait seconds then turn C on while G still on
+        time.sleep((self.standardTimeS/self.timeA[1])/2)
+        self.lightL[1].toggleOn()
+        time.sleep((self.standardTimeS/self.timeA[1])/4)
+        self.lightL[2].toggleOn()
+        time.sleep((self.standardTimeS/self.timeA[1])/4)
+        self.lightL[3].toggleOn()
+        time.sleep((self.standardTimeS/self.timeA[1])/4)
+        self.offP()
         
     def altBlink(self,num):
         '''blink lights based on array value (odd or even)'''

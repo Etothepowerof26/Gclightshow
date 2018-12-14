@@ -4,169 +4,132 @@ import time
 
 class Light:  
     '''light object'''
-    def __init__(self, pin, name, state=False):
+    def __init__(self, pin, name, state = False):
         self.pin=pin
         self.state=state
         self.name=name
+    
+	def setState(self, state = False):
+		self.state = state
+		GPIO.output(self.pin, state)
+		print("Light " + self.name + " is now " + self.state == True and "ON" or "OFF")
+	
+    def toggle(self):
+		self.setState(not self.state)
 
-    def getState(self):
-        return self.state
-    
-    def toggleOff(self):
-        #light off
-        GPIO.output(self.pin, True)
-        self.state=True
-        print("light "+ self.name+" off")
-    def toggleOn(self):
-        #light on
-        GPIO.output(self.pin, False)
-        self.state=False
-        print("light "+ self.name+" on")
-    
-    
+# A basic rewrite of LightShow.
 class LightShow(Light):
-    '''List of lights and their respective functions
-        initialized variables in list of:
-        standard time, array of light objects, array of time factors
-        
-        array of times should be in this order:
-        blink,
-    '''
-    def __init__(self, standardTimeS, lightL, timeA):
-        #array of lights
-        self.lightL=lightL
-        #standard time for light on
-        self.standardTimeS=standardTimeS
-        #array of time factors
-        self.timeA=timeA
-        #number of lights
-        self.countT=len(self.lightL)
-
-        #variables for alt blink
-        self.lightB=False
-        self.lighte=[]
-        self.lighto=[]
-    
-    def altBlinkinit(self):
-        for x in range(0,self.countT):
-            if (x%2)==0:
-                self.lighte.append(x)
-            else:
-                self.lighto.append(x)
-        self.b=True
-
-    def offP(self):
-        '''used to make sure all functions start at the same point every time'''
-        for x in range(0,self.countT):
-            self.lightL[x].toggleOff()  
-        
-    def blink(self, times):
-        #turn lights on
-        for x in range(0,self.countT):
-            self.lightL[x].toggleOn()
-        time.sleep(self.standardTimeS*self.timeA[0])
-        for x in range(0,self.countT):
-            self.lightL[x].toggleOff()
-        #turn lights off
- 
-    def oboblink(self):
-        '''One by one blink'''
-        self.offP()
-        #number of times it'll take to blink up and down
-        #self.countT=self.countT*2+1
-        # old code btw
-        #populate light state array with falses
-        #lightS=[]
-        # for x in self.lightL:
-        #     lightS.append(False)
-
-        for x in range(0,self.countT):
-            self.lightL[x].toggleOn()
-            time.sleep(self.standardTimeS*self.timeA[1])
-        #bootleg way to turn them off then that way
-        #i found a better way but I like it bootleg
-        #maybe i'll optimize it later
-        count1=self.countT-1
-        count2=0
-        while (count1-count2)>=0:
-            self.lightL[count1-count2].toggleOff()
-            count2+=1
-            time.sleep(self.standardTimeS*self.timeA[1])
-        self.offP()
-
-    def obobblink(self):
-        '''One by one blink backwards'''
-        self.offP()
-        for x in range((-1*self.countT)+1,1):
-            self.lightL[-x].toggleOn()
-            time.sleep(self.standardTimeS*self.timeA[1])
-        for x in range(0,len(self.lightL)):
-            self.lightL[x].toggleOff()
-            time.sleep(self.standardTimeS*self.timeA[1])
-        self.offP()
-    
-    def bounce(self):
-        '''Bounce the light that is on from one end to another'''
-        self.offP()
-        for x in range(0,len(self.lightL)):
-            self.lightL[x].toggleOn()
-            time.sleep(self.standardTimeS*self.timeA[1])
-            self.lightL[x].toggleOff()
-        #leaves last light on
-        for x in range(-len(self.lightL)+1,1):
-            self.lightL[-x].toggleOn()
-            time.sleep(self.standardTimeS*self.timeA[1])
-            self.lightL[-x].toggleOff()
-        self.offP()
-    
-    def rowblink(self):
-        '''Turn on rows at a time'''
-        self.offP()
-        #turn all on
-        for x in range(0,len(self.lightL)):
-            self.lightL[x].toggleOn()
-        #wait sleep time
-        time.sleep(self.standardTimeS*self.timeA[2])
-        #turn all off
-        for x in range(0,len(self.lightL)):
-            self.lightL[x].toggleOff()
-        self.offP()
-        
-    def gcBlink(self):
-        self.offP()
-        #turn g on
-        time.sleep(2)
-        self.lightL[0].toggleOn()
-        #wait seconds then turn C on while G still on
-        time.sleep((self.standardTimeS*self.timeA[1]))
-        self.lightL[1].toggleOn()
-        time.sleep((self.standardTimeS*self.timeA[1]))
-        self.lightL[2].toggleOn()
-        time.sleep((self.standardTimeS*self.timeA[3]))
-        self.lightL[3].toggleOn()
-        time.sleep((self.standardTimeS*self.timeA[3]))
-        self.offP()
-        
-    def altBlink(self,num):
-        '''blink lights based on array value (odd or even)'''
-        self.offP()
-        if not self.lightB:
-            self.altBlinkinit()
-        for x in range(0,num+1):
-            for x in range(0,len(self.lighte)):
-                #toggle even on
-                #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x]].toggleOn()
-            time.sleep(self.standardTimeS*self.timeA[3])
-            for x in range(0,len(self.lighte)):
-                #toggle even off
-                #light_object_array[even array[iterator]].toggle()
-                self.lightL[self.lighte[x]].toggleOff()
-            for x in range(0,len(self.lighto)):
-                #toggle odd on
-                self.lightL[self.lighto[x]].toggleOn()
-            time.sleep(self.standardTimeS*self.timeA[3])
-            for x in range(0,len(self.lighto)):
-                #toggle odd on
-                self.lightL[self.lighto[x]].toggleOff()
-        self.offP()
+	def __init__(self, Delay, Lights, TimeFactors):
+		self.Lights = Lights           # Array of lights
+		self.Delay = Delay             # Delay of lights
+		self.TimeFactors = TimeFactors # Time Factors
+		self.CurrentTimeFactor = 0     # Index of the current time factor
+	
+	def setStateOfLight(self, index = 0, state = False): # Sets the state of a single light.
+		self.Lights[index].setState(state)
+		
+	def getLight(self, index = 0): # Gets a light at the specified index.
+		return self.Lights[index]
+	
+	def setStateOfLights(self, state = False): # Sets the state of all lights.
+		for i in range(len(self.Lights)):
+			self.setStateOfLight(i, state)
+	
+	# Convenience functions to turn off/on lights.
+	def turnOffLights(self): self.setStateOfLights()
+	def turnOnLights(self): self.setStateOfLights(True)
+	def toggleLights(self): 
+		for i in range(len(self.Lights)):
+			self.getLight(i).setState(not self.getLight(i).state) # (not self.getLight(i).state)
+	
+	def sleepFactor(self): # Sleeps for the light show's current time factor.
+		time.sleep(self.Delay * self.TimeFactors[self.CurrentTimeFactor])
+	
+	# Light show functions
+	def blink(self, times = 1):
+		self.CurrentTimeFactor = 0
+		for i in range(times):
+			self.turnOnLights()  # Turns on the lights
+			self.sleepFactor()   # Waits a little
+			self.turnOffLights() # Turns off the lights
+			self.sleepFactor()   # Waits a little
+		
+	def onebyone_blink(self, times = 1, doBackwards = False): # One By One Blink, support for backwards
+		self.turnOffLights()                             # Turns off the lights
+		self.CurrentTimeFactor = 1                       # Changes the index of the time factor
+		
+		for i in range(times):
+			if doBackwards == True:
+				for i in range(len(self.Lights) - 1, 0, -1): # Goes down through the list of lights and toggles them
+					self.getLight(i).toggle()
+					self.sleepFactor()
+					
+				for i in range(len(self.Lights)):            # Goes up the list of lights and toggles them again
+					self.getLight(i).toggle()
+					self.sleepFactor()
+			else:
+				for i in range(len(self.Lights)):            # Goes up through the list of lights and toggles them
+					self.getLight(i).toggle()
+					self.sleepFactor()
+				
+				for i in range(len(self.Lights), 0, -1):     # Goes down the list of lights and toggles them again
+					self.getLight(i).toggle()
+					self.sleepFactor()
+		
+		self.turnOffLights() # Turns off the lights.
+	
+	def bounce(self, times = 1): # Bounces the lights.
+		self.turnOffLights()       # Turns off the lights
+		self.CurrentTimeFactor = 1 # Changes the index of the time factor.
+		
+		for i in range(times):
+			for i in range(len(self.Lights)):        # Goes up through the list of lights and blinks it.
+				self.getLight(i).toggle()
+				self.sleepFactor()
+				self.getLight(i).toggle()
+				
+			for i in range(len(self.Lights), 0, -1): # Goes down the list of lights and toggles them again.
+				self.getLight(i).toggle()
+				self.sleepFactor()
+				self.getLight(i).toggle()
+		self.turnOffLights() # Turns off the lights
+	
+	def row_blink(self, times = 1):
+		self.turnOffLights()           # Turns off the lights 
+		self.CurrentTimeFactor = 2     # Changes the index of the time factor.
+		for i in range(times):
+			self.turnOnLights()        # Turns on the lights
+			self.sleepFactor()         # Sleeps for amount of time in the array of time factors
+			self.turnOffLights()       # Turns off the lights
+			self.sleepFactor()         # Sleeps for amount of time in the array of time factors
+	
+	def gc_blink(self):
+		self.turnOffLights()
+		self.CurrentTimeFactor = 1
+		self.getLight(0).setState(True) # G and C
+		self.sleepFactor()
+		self.getLight(1).setState(True)
+		self.sleepFactor()
+		self.CurrentTimeFactor = 3      # H and S
+		self.getLight(2).setState(True)
+		self.sleepFactor()
+		self.getLight(3).setState(True)
+		self.sleepFactor()
+		self.turnOffLights()            # Turns off all lights at the end.
+	
+	def alternative_blink(self, times = 1)
+		times = times * 2
+		self.CurrentTimeFactor = 3 # Changes the index of the time factor
+		
+		for i in range(times):
+			for i,v in enumerate(self.Lights): # Goes through the array of lights with the enumerate function.
+				if i%2==0:                     # If index is even
+					v.setState(True)           # Turns the light on
+				else:                          # Else
+					v.setState(False)          # Turns the light off
+			self.sleepFactor()                 # Sleeps for amount of time in the array of time factors
+			
+			for i in range(self(len.Lights)):
+				self.getLight(i).toggle()
+			self.sleepFactor()
+		self.turnOffLights()

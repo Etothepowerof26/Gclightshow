@@ -30,18 +30,16 @@ try:
         lightShow1.gcBlink()
         time.sleep(2)
         
-        lightShow1.oboblink()
+        lightShow1.onebyone_blink()
         lightShow1.blink(4)
-        lightShow1.altBlink(4)
+        lightShow1.alternative_blink(4)
         lightShow1.bounce()
-        lightShow1.rowblink()
-        lightShow1.obobblink()
-        lightShow1.offP()
-        lightShow1.gcBlink()
-        lightShow1.offP()
+        lightShow1.row_blink()
+        lightShow1.onebyone_blink()
+        lightShow1.turnOffLights()
+        lightShow1.gc_blink()
+        lightShow1.turnOffLights()
         time.sleep(180)
 except KeyboardInterrupt:
-  print("Quit")
-
-  # Reset GPIO settings
-  GPIO.cleanup()
+	print("Quit")
+	GPIO.cleanup()
